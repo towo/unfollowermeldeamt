@@ -106,7 +106,7 @@ if ($number_unfollowers == 0) {
 }
 
 my %unfollowers; my $data;
-$data = $twitter->lookup_users(user_id => \@unfollowing_ids);
+$data = $twitter->lookup_users({user_id => \@unfollowing_ids});
 
 foreach (@{$data}) {
 	$unfollowers{$_->{screen_name}} = $_->{name};
