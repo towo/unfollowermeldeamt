@@ -37,8 +37,6 @@ if (-r $rcfile) {
 	$config->read($rcfile);
 	die "Need a source mail address!" unless $config->param('mail.source') =~ m/@/;
 	die "Need a target mail address!" unless $config->param('mail.target') =~ m/@/;
-}
-
 } else {
 	if (-e $rcfile) {
 		die "$0: configuration file «$rcfile» not readable\n";
