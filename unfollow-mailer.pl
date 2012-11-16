@@ -25,6 +25,7 @@
 use Config::Simple;
 use Net::Twitter;
 use Mail::Sendmail;
+use Encode;
 use strict;
 
 # config file
@@ -135,7 +136,7 @@ if ($identified_unfollowers > 0) {
 my %mail = (
 	To      => $config->param('mail.target'),
 	From    => $config->param('mail.source'),
-	Message => "${mailheader}${message}${mailfooter}",
+	Message => Encode::encode('utf8',"${mailheader}${message}${mailfooter}"),
 	Subject => $subject
 );
 
