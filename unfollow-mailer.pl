@@ -110,9 +110,22 @@ my $subject  = "Twitter: ";
    $subject .= ($number_unfollowers == 1) ? "one person " : "$number_unfollowers people ";
    $subject .= "unfollowed you!";
 
+my $identified_unfollowers = scalar(keys(%unfollowers));
 my $message  = '';
-map { $message .= "  * $unfollowers{$_} ($_)\n" } sort(keys(%unfollowers));
-   $message .= "\n";
+
+if ($identified_unfollowers > 0) {
+	map { $message .= "  * $unfollowers{$_} ($_)\n" } sort(keys(%unfollowers));
+	my $unidentified_unfollowers = $number_unfollowers - $identified_unfollowers;
+	if ($unidentified_unfollowers > 0) {
+		$message .= "\n";
+		$message .= "Additionally, there were $unidentified_unfollowers accounts which could not be identified.\n";
+		$message .= "This usually means they were deleted.\n";
+	}
+	$message .= "\n";
+} else {
+	$message .= "Sadly, this list is empty because none of them could be identified,";
+	$message .= " which means they were probably deleted.\n";
+}
 
 my %mail = (
 	To      => $config->param('mail.target'),
