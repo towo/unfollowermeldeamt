@@ -22,9 +22,9 @@ You will need to create a Twitter application on [the Twitter developer page](ht
 Usage
 =====
 
-# Execute for the first time after configured.
-# Wait for a while.
-# Execute for a second time, ideally after someone unfollowed you. You will get a mail.
+- Execute for the first time after configured.
+- Wait for a while.
+- Execute for a second time, ideally after someone unfollowed you. You will get a mail.
 
 Ideally, you'll just dump this in a cronjob and it'll take care of itself.
 
