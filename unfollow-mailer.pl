@@ -98,6 +98,9 @@ if ($number_unfollowers > 100) {
 
 # no unfollowers
 if ($number_unfollowers == 0) {
+	if (-t STDOUT) {
+		print "No action required, no unfollowers.\n";
+	}
 	exit 0;
 }
 
