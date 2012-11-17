@@ -92,11 +92,6 @@ foreach (@{$config->param('twitter.follower_ids')}) {
 
 my $number_unfollowers = scalar @unfollowing_ids;
 
-# FIXME: pagination
-if ($number_unfollowers > 100) {
-	die "$0: pagination for more than 100 user lookups not implemented yet, bailing out.\n";
-}
-
 # no unfollowers
 if ($number_unfollowers == 0) {
 	if (-t STDOUT) {
@@ -105,10 +100,19 @@ if ($number_unfollowers == 0) {
 	exit 0;
 }
 
-my %unfollowers; my $data;
-$data = $twitter->lookup_users({user_id => \@unfollowing_ids});
+my %unfollowers; my @data;
+for (my $i = 0; $i <= int($number_unfollowers/100); $i++) {
+	my $start = $i*100;
+	my $end = ($i+1)*100-1;
+	if ($i == int($number_unfollowers/100)) {
+		$end = $number_unfollowers;
+	}
+	my $package = join(',', @unfollowing_ids[$start .. $end]);
+	my $reference = $twitter->lookup_users({user_id => $package});
+	push(@data,@{$reference});
+}
 
-foreach (@{$data}) {
+foreach (@data) {
 	$unfollowers{$_->{screen_name}} = $_->{name};
 }
 
