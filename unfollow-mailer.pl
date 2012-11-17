@@ -138,10 +138,11 @@ if ($identified_unfollowers > 0) {
 }
 
 my %mail = (
-	To      => $config->param('mail.target'),
-	From    => $config->param('mail.source'),
-	Message => Encode::encode('utf8',"${mailheader}${message}${mailfooter}"),
-	Subject => $subject
+	'To'           => $config->param('mail.target'),
+	'From'         => $config->param('mail.source'),
+	'Message'      => Encode::encode('utf8',"${mailheader}${message}${mailfooter}"),
+	'Subject'      => $subject,
+	'Content-Type' => 'text/plain; charset="utf-8"',
 );
 
 sendmail(%mail) or die $Mail::Sendmail::error;
