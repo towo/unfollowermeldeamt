@@ -26,6 +26,7 @@ use Config::Simple;
 use Net::Twitter;
 use Mail::Sendmail;
 use Encode;
+use Try::Tiny;
 use strict;
 
 # config file
@@ -108,8 +109,10 @@ for (my $i = 0; $i <= int($number_unfollowers/100); $i++) {
 		$end = $number_unfollowers;
 	}
 	my $package = join(',', @unfollowing_ids[$start .. $end]);
-	my $reference = $twitter->lookup_users({user_id => $package});
-	push(@data,@{$reference});
+	try {
+		my $reference = $twitter->lookup_users({user_id => $package});
+		push(@data,@{$reference});
+	};
 }
 
 foreach (@data) {
