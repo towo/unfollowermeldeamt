@@ -7,9 +7,12 @@ Prerequisites
 =============
 
 * Perl
-* Config::Simple
-* Net::Twitter
-* Mail::Sendmail
+* Perl modules:
+  * Config::Simple
+  * Net::Twitter
+  * Mail::Sendmail
+  * Encode
+  * Try::Tiny
 
 Configuration
 =============
