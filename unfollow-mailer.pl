@@ -84,6 +84,20 @@ for (my $cursor = -1, my $r; $cursor; $cursor = $r->{next_cursor}) {
 	}
 }
 
+# squashedstring
+my $seen_string = join(',', sort keys %seen);
+
+# check for initial run
+unless ($config->param('twitter.follower_ids')) {
+	if (-t STDOUT) {
+		print "Initial import; not checking for unfollowers.\n";
+	}
+	$config->param('twitter.follower_ids', $seen_string);
+	$config->save;
+	exit 0;
+}
+
+# extract people who aren't following anymore
 my @unfollowing_ids;
 foreach (@{$config->param('twitter.follower_ids')}) {
 	if ($seen{$_} != 1) {
@@ -91,6 +105,11 @@ foreach (@{$config->param('twitter.follower_ids')}) {
 	}
 }
 
+# write followers to config
+$config->param('twitter.follower_ids', $seen_string);
+$config->save;
+
+# checki if action necessary
 my $number_unfollowers = scalar @unfollowing_ids;
 
 # no unfollowers
@@ -149,11 +168,6 @@ my %mail = (
 );
 
 sendmail(%mail) or die $Mail::Sendmail::error;
-
-my $seen_string = join(',', sort keys %seen);
-
-# write seen users to configuration
-$config->param('twitter.follower_ids', $seen_string);
 
 # log last check time
 $config->param('twitter.last_check', scalar localtime);
