@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # mails log of people who unfollowed the authenticated user
 
-# Copyright 2012 Tobias Wolter
+# Copyright 2012-2013 Tobias Wolter
 
 # MIT licence:
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -71,7 +71,7 @@ my $twitter = Net::Twitter->new(
 	consumer_secret     => $config->param('oauth.consumer_secret'),
 	access_token        => $config->param('oauth.access_token'),
 	access_token_secret => $config->param('oauth.access_token_secret'),
-	traits              => [qw/OAuth API::REST/],
+	traits              => [qw/OAuth API::RESTv1_1/],
 );
 
 # FIXME: exception handling
