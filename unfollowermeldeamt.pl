@@ -23,7 +23,7 @@
 # SOFTWARE.
 
 use Config::Simple;
-use Net::Twitter;
+use Net::Twitter 4.00001;
 use Mail::Sendmail;
 use Encode;
 use Try::Tiny;
