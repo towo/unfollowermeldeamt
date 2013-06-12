@@ -1,5 +1,5 @@
-unfollower-mailer
-=================
+Unfollowermeldeamt
+==================
 
 When executed, mails you a summary of your unfollowers since you last ran this program (on the same machine).
 
