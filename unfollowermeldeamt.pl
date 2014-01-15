@@ -23,7 +23,7 @@
 # SOFTWARE.
 
 use Config::Simple;
-use Net::Twitter;
+use Net::Twitter 4.00001;
 use Mail::Sendmail;
 use Encode;
 use Try::Tiny;
@@ -72,6 +72,7 @@ my $twitter = Net::Twitter->new(
 	access_token        => $config->param('oauth.access_token'),
 	access_token_secret => $config->param('oauth.access_token_secret'),
 	traits              => [qw/OAuth API::RESTv1_1/],
+	ssl                 => 1,
 );
 
 # FIXME: exception handling
